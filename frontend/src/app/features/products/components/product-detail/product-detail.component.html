@@ -1,0 +1,28 @@
+<div class="product-detail">
+  <h2>Product Detail View</h2>
+  <div *ngIf="product">
+    <h3>{{ product.name }}</h3>
+    <p><strong>Price:</strong> {{ product.price | currency }}</p>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <div class="attributes">
+      <h4>Attributes:</h4>
+      <ul>
+        <li *ngFor="let attribute of product.attributes">
+          <strong>{{ attribute.name }}:</strong> <span>{{ attribute.value }}</span>
+        </li>
+      </ul>
+    </div>
+    <button (click)="editMode = true">Edit</button>
+  </div>
+  <div *ngIf="editMode">
+    <h3>Edit Product</h3>
+    <form (ngSubmit)="onSave()">
+      <div *ngFor="let attribute of product.attributes">
+        <label>{{ attribute.name }}:</label>
+        <input type="text" [(ngModel)]="attribute.value" name="{{ attribute.name }}">
+      </div>
+      <button type="submit">Save</button>
+      <button (click)="editMode = false">Cancel</button>
+    </form>
+  </div>
+</div>
